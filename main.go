@@ -25,17 +25,21 @@ var albums = []album{
 }
 
 func main() {
-	router := gin.Default()
-	router.GET("/albums", getAlbums)
-	router.GET("/albums/:id", getAlbumByID)
-	router.POST("/albums", postAlbums)
+	router := http.NewServeMux()
+	router.HandleFunc("/albums", getAlbums)
 
-	router.Run("localhost:8080")
+	http.ListenAndServe(":8080", router)
+}
+
+func test() {
+	fmt.Println("test")
+	return
 }
 
 // getAlbums responds with the list of all albums as JSON.
-func getAlbums(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, albums)
+func getAlbums(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "hello world")
+	//c.IndentedJSON(http.StatusOK, albums)
 
 }
 
